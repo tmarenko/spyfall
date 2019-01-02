@@ -12,21 +12,29 @@ function cleanUpGamesAndPlayers() {
   });
 }
 
-function getRandomLocation(locationOption){
+function getLocationsByOption(locationOption){
   if(locationOption === "location1") {
-	  var locationIndex = Math.floor(Math.random() * locations.length);
-	  return locations[locationIndex];
+	  return locations;
   }
 
   if(locationOption === "location2") {
-	  var locationIndex2 = Math.floor(Math.random() * locations2.length);
-	  return locations2[locationIndex2];
+	  return locations2;
   }
-
   // use both locations
-  var allLocations = locations.concat(locations2);
-  var allIndex = Math.floor(Math.random() * allLocations.length);
-  return allLocations[allIndex];
+  return locations.concat(locations2);
+}
+
+function getLocationsByDifficulty(locations, difficulty){
+    var numLocations = 4 + difficulty;
+    if(numLocations > locations.length)
+    	numLocations = locations.length;
+
+    var locationsByDifficulty = locations.slice();
+    while(locationsByDifficulty.length > numLocations && locationsByDifficulty.length > 0) {
+	    var removeLocationIndex = Math.floor(Math.random() * locationsByDifficulty.length);
+	    locationsByDifficulty.splice(removeLocationIndex, 1);
+    }
+    return locationsByDifficulty;
 }
 
 function shuffleArray(array) {
@@ -81,13 +89,17 @@ Meteor.publish('players', function(gameID) {
 
 Games.find({"state": 'settingUp'}).observeChanges({
   added: function (id, game) {
-    var location = getRandomLocation(game.locationOption);
 
     var players = Players.find({gameID: id});
     var gameEndTime = moment().add(game.lengthInMinutes, 'minutes').valueOf();
 
     var spyIndex = Math.floor(Math.random() * players.count());
     var firstPlayerIndex = Math.floor(Math.random() * players.count());
+
+    var availableLocations = getLocationsByOption(game.locationOption)
+    var locations = getLocationsByDifficulty(availableLocations, game.difficulty * players.count())
+	var locationIndex = Math.floor(Math.random() * locations.length);
+    location = locations[locationIndex];
 
     players.forEach(function(player, index){
       Players.update(player._id, {$set: {
@@ -98,6 +110,6 @@ Games.find({"state": 'settingUp'}).observeChanges({
 
     assignRoles(players, location);
 
-    Games.update(id, {$set: {state: 'inProgress', location: location, endTime: gameEndTime, paused: false, pausedTime: null}});
+    Games.update(id, {$set: {state: 'inProgress', locations: locations, location: location, endTime: gameEndTime, paused: false, pausedTime: null}});
   }
 });
