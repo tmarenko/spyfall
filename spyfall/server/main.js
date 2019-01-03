@@ -31,20 +31,26 @@ function getLocationsByDifficulty(locations, difficulty){
 
     var locationsByDifficulty = locations.slice();
     while(locationsByDifficulty.length > numLocations && locationsByDifficulty.length > 0) {
-	    var removeLocationIndex = Math.floor(Math.random() * locationsByDifficulty.length);
+	    var removeLocationIndex = Math.floor(Random.fraction() * locationsByDifficulty.length);
 	    locationsByDifficulty.splice(removeLocationIndex, 1);
     }
     return locationsByDifficulty;
 }
 
 function shuffleArray(array) {
-    for (var i = array.length - 1; i > 0; i--) {
-        var j = Math.floor(Math.random() * (i + 1));
-        var temp = array[i];
-        array[i] = array[j];
-        array[j] = temp;
-    }
-    return array;
+  var currentIndex = array.length, temporaryValue, randomIndex;
+
+  while (0 !== currentIndex) {
+
+	randomIndex = Math.floor(Random.fraction() * currentIndex);
+    currentIndex -= 1;
+
+    temporaryValue = array[currentIndex];
+    array[currentIndex] = array[randomIndex];
+    array[randomIndex] = temporaryValue;
+  }
+
+  return array;
 }
 
 function assignRoles(players, location){
@@ -52,9 +58,6 @@ function assignRoles(players, location){
   var roles = location.roles.slice();
   var shuffled_roles = shuffleArray(roles);
   var role = null;
-
-  // console.log(default_role);
-  // console.log(roles);
 
   players.forEach(function(player){
     if (!player.isSpy){
@@ -93,12 +96,12 @@ Games.find({"state": 'settingUp'}).observeChanges({
     var players = Players.find({gameID: id});
     var gameEndTime = moment().add(game.lengthInMinutes, 'minutes').valueOf();
 
-    var spyIndex = Math.floor(Math.random() * players.count());
-    var firstPlayerIndex = Math.floor(Math.random() * players.count());
+    var spyIndex = Math.floor(Random.fraction() * players.count());
+    var firstPlayerIndex = Math.floor(Random.fraction() * players.count());
 
     var availableLocations = getLocationsByOption(game.locationOption)
     var locations = getLocationsByDifficulty(availableLocations, game.difficulty * players.count())
-	var locationIndex = Math.floor(Math.random() * locations.length);
+	var locationIndex = Math.floor(Random.fraction() * locations.length);
     location = locations[locationIndex];
 
     players.forEach(function(player, index){
