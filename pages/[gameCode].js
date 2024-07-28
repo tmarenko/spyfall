@@ -24,11 +24,18 @@ const Game = ({ loading }) => {
 	const [isRocketcrab, setIsRocketcrab] = useState(false);
 	const [isConnected, setIsConnected] = useState(socket.connected);
 
+	const cleanup = () => {
+		socket.close();
+		setGameState({ status: "loading" });
+	};
+
 	useEffect(() => {
 		const cl = socket.on("connect", () => setIsConnected(true));
+		window.addEventListener("beforeunload", cleanup);
 
 		return () => {
 			socket.off("connect", cl);
+			window.removeEventListener("beforeunload", cleanup);
 		};
 	}, []);
 
@@ -73,11 +80,6 @@ const Game = ({ loading }) => {
 			setIsRocketcrab(true);
 			onNameEntry(name);
 		}
-
-		return function cleanup() {
-			socket.close();
-			setGameState({ status: "loading" });
-		};
 	}, [isConnected]);
 
 	const onNameEntry = (name) => {
