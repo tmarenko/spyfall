@@ -22,7 +22,7 @@ const Game = ({ loading }) => {
 		status: "loading",
 	});
 	const [isRocketcrab, setIsRocketcrab] = useState(false);
-	const [isConnected, setIsConnected] = useState(false);
+	const [isConnected, setIsConnected] = useState(socket.connected);
 
 	useEffect(() => {
 		const cl = socket.on("connect", () => setIsConnected(true));
