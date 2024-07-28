@@ -22,8 +22,24 @@ const Game = ({ loading }) => {
 		status: "loading",
 	});
 	const [isRocketcrab, setIsRocketcrab] = useState(false);
+	const [isConnected, setIsConnected] = useState(false);
 
 	useEffect(() => {
+		const cl = socket.on("connect", () => setIsConnected(true));
+		const dl = socket.on("disconnect", () => setIsConnected(false));
+
+		return () => {
+			socket.off("connect", cl);
+			socket.off("disconnect", dl);
+		};
+	}, []);
+
+	useEffect(() => {
+		if (!isConnected) {
+			socket.connect();
+			return;
+		}
+
 		const { previousGameCode, previousName } = parseCookies();
 
 		if (previousGameCode === gameCode && previousName) {
@@ -51,7 +67,7 @@ const Game = ({ loading }) => {
 			socket.close();
 			setGameState({ status: "loading" });
 		};
-	}, []);
+	}, [isConnected]);
 
 	const onNameEntry = (name) => {
 		socket.emit("name", name);
