@@ -8,7 +8,7 @@ import ThanksForPlaying from "./ThanksForPlaying";
 import AccessCode from "./AccessCode";
 import HideableContainer from "./HideableContainer";
 
-const Lobby = ({ gameState, socket }) => {
+const Lobby = ({ gameState, socket, isRocketcrab }) => {
 	const playerList = gameState.players.map((player) => ({
 		...player,
 		isMe: player.name === gameState.me.name,
@@ -27,7 +27,7 @@ const Lobby = ({ gameState, socket }) => {
 		<>
 			<h4>{t("ui.waiting for players")}</h4>
 
-			<AccessCode code={gameState.code} />
+			{!isRocketcrab && <AccessCode code={gameState.code} />}
 
 			<hr />
 
@@ -37,7 +37,7 @@ const Lobby = ({ gameState, socket }) => {
 						{player.name}
 						{!player.name && <i>Joining...</i>}
 
-						{player.isMe && (
+						{player.isMe && !isRocketcrab && (
 							<a
 								href="#"
 								className="btn-edit-player"
@@ -73,17 +73,19 @@ const Lobby = ({ gameState, socket }) => {
 				>
 					{t("ui.start game")}
 				</button>
-				<button
-					className="btn-leave"
-					onClick={() => {
-						//prevents a redirect back to /[gameCode]
-						socket.off("disconnect");
+				{!isRocketcrab && (
+					<button
+						className="btn-leave"
+						onClick={() => {
+							//prevents a redirect back to /[gameCode]
+							socket.off("disconnect");
 
-						Router.push("/");
-					}}
-				>
-					{t("ui.leave game")}
-				</button>
+							Router.push("/");
+						}}
+					>
+						{t("ui.leave game")}
+					</button>
+				)}
 			</div>
 			{gameState.currentRoundNum > 1 && <ThanksForPlaying />}
 		</>

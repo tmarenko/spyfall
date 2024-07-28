@@ -8,7 +8,7 @@ import AccessCode from "./AccessCode";
 import HideableContainer from "./HideableContainer";
 import { useCurrentLocale, useI18n } from "../locales";
 
-const InGame = ({ gameState, socket }) => {
+const InGame = ({ gameState, socket, isRocketcrab }) => {
 	const {
 		me,
 		location,
@@ -86,7 +86,7 @@ const InGame = ({ gameState, socket }) => {
 				</div>
 			)}
 
-			<AccessCode code={gameState.code} />
+			{!isRocketcrab && <AccessCode code={gameState.code} />}
 
 			<HideableContainer title={"Your Role"} initialHidden={false}>
 				<div className="status-container-content">

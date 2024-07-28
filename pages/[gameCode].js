@@ -21,6 +21,7 @@ const Game = ({ loading }) => {
 	const [gameState, setGameState] = useState({
 		status: "loading",
 	});
+	const [isRocketcrab, setIsRocketcrab] = useState(false);
 
 	useEffect(() => {
 		const { previousGameCode, previousName } = parseCookies();
@@ -58,6 +59,18 @@ const Game = ({ loading }) => {
 		setCookie(null, "previousName", name);
 	};
 
+	useEffect(() => {
+		const urlParams = new URLSearchParams(window.location.search);
+
+		const isRocketcrab = urlParams.get("rocketcrab") === "true";
+		const name = urlParams.get("name");
+
+		if (isRocketcrab && name) {
+			setIsRocketcrab(true);
+			onNameEntry(name);
+		}
+	}, []);
+
 	const { status, me } = gameState;
 
 	const showLoading = status === "loading" || loading;
@@ -82,8 +95,20 @@ const Game = ({ loading }) => {
 							socket={socket}
 						/>
 					)}
-					{showLobby && <Lobby gameState={gameState} socket={socket} />}
-					{showGame && <InGame gameState={gameState} socket={socket} />}
+					{showLobby && (
+						<Lobby
+							gameState={gameState}
+							socket={socket}
+							isRocketcrab={isRocketcrab}
+						/>
+					)}
+					{showGame && (
+						<InGame
+							gameState={gameState}
+							socket={socket}
+							isRocketcrab={isRocketcrab}
+						/>
+					)}
 				</>
 			)}
 		</>

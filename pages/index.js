@@ -12,37 +12,37 @@ const Home = ({ loading }) => {
 	const router = useRouter();
 	const [newGameLoading, setNewGameLoading] = useState(false);
 	const t = useI18n();
-	const onNewGame = async (e) => {
-		e.preventDefault();
-		setNewGameLoading(true);
+	// const onNewGame = async (e) => {
+	// 	e.preventDefault();
+	// 	setNewGameLoading(true);
 
-		try {
-			const res = await fetch(window.location.origin + "/new", {
-				method: "POST",
-				headers: {
-					Accept: "application/json",
-					"Content-Type": "application/json",
-				},
-				body: JSON.stringify({ name }),
-			});
+	// 	try {
+	// 		const res = await fetch(window.location.origin + "/new", {
+	// 			method: "POST",
+	// 			headers: {
+	// 				Accept: "application/json",
+	// 				"Content-Type": "application/json",
+	// 			},
+	// 			body: JSON.stringify({ name }),
+	// 		});
 
-			if (res.status === 200) {
-				const { gameCode } = await res.json();
-				router.push("/" + gameCode);
-			} else if (res.status === 423) {
-				const { minutes } = await res.json();
-				setNewGameLoading(false);
+	// 		if (res.status === 200) {
+	// 			const { gameCode } = await res.json();
+	// 			router.push("/" + gameCode);
+	// 		} else if (res.status === 423) {
+	// 			const { minutes } = await res.json();
+	// 			setNewGameLoading(false);
 
-				Swal.fire(lockedMessage(minutes));
-			} else {
-				throw res.status + " " + res.statusText;
-			}
-		} catch (error) {
-			console.error(error);
-			Swal.fire(error);
-			setNewGameLoading(false);
-		}
-	};
+	// 			Swal.fire(lockedMessage(minutes));
+	// 		} else {
+	// 			throw res.status + " " + res.statusText;
+	// 		}
+	// 	} catch (error) {
+	// 		console.error(error);
+	// 		Swal.fire(error);
+	// 		setNewGameLoading(false);
+	// 	}
+	// };
 
 	return (
 		<div className="main-menu">
@@ -61,28 +61,25 @@ const Home = ({ loading }) => {
 			{(loading || newGameLoading) && <Loading />}
 			{!loading && (
 				<>
-					<p>
-						The "no game was found" issue is fixed now! 🎉 Sorry about that 😭
-					</p>
 					<div className="button-container">
-						<Link href="/join">
+						<Link href="https://rocketcrab.com/join">
 							<button id="btn-join-game" className="btn-large">
 								{t("ui.join game")}
 							</button>
 						</Link>
-						<button id="btn-new-game" onClick={onNewGame} className="btn-large">
-							{t("ui.new game")}
-						</button>
-					</div>
-					<div className="button-container-vertical">
-						<Link href="/how-to-play">
-							<button className="btn-small btn-vertical">How to Play</button>
-						</Link>
-						<Link href="/more-games">
-							<button className="btn-small btn-vertical">
-								Games Like Spyfall
+						<Link href="https://rocketcrab.com/transfer/tk-spyfall">
+							<button id="btn-new-game" className="btn-large">
+								{t("ui.new game")}
 							</button>
 						</Link>
+					</div>
+					<p>Powered by 🚀🦀</p>
+					<div className="button-container-vertical">
+						<div style={{ width: "100%" }}>
+							<Link href="/how-to-play">
+								<button className="btn-small btn-vertical">How to Play</button>
+							</Link>
+						</div>
 						<a
 							href="https://github.com/tannerkrewson/spyfall/blob/dev/README.md#history"
 							target="_blank"
