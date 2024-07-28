@@ -6,16 +6,8 @@ const ThanksForPlaying = () => (
 			<div className="text">
 				Thanks for playing Spyfall!
 				<br />
-				If you had fun, try my other game:
+				If you had fun:
 			</div>
-			<a
-				href="https://drawphone.tannerkrewson.com/"
-				target="_blank"
-				rel="noopener noreferrer"
-			>
-				<button className="btn-small">Play Drawphone</button>
-			</a>
-			<div className="text">or, if you're feeling hungry:</div>
 			<div style={{ width: "148px", margin: "0 auto" }}>
 				<BuyMe />
 			</div>

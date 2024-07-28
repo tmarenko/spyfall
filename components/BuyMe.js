@@ -14,7 +14,7 @@ const BuyMe = () => (
 				text-decoration: none !important;
 				display: inline-flex !important;
 				color: #ffffff !important;
-				background-color: #ff813f !important;
+				background-color: #9959f0 !important;
 				border-radius: 5px !important;
 				border: 1px solid transparent !important;
 				padding: 7px 10px 7px 10px !important;
@@ -47,11 +47,7 @@ const BuyMe = () => (
 			href="https://www.buymeacoffee.com/tannerkrewson"
 			rel="noopener noreferrer"
 		>
-			<span
-				src="https://cdn.buymeacoffee.com/buttons/bmc-new-btn-logo.svg"
-				alt="Buy me a taco"
-				className="taco"
-			>
+			<span alt="Buy me a taco" className="taco">
 				🌮
 			</span>
 			<span style={{ marginLeft: "15px", fontWeight: "bold" }}>
