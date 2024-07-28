@@ -13,7 +13,6 @@ const AccessCode = ({ code }) => {
                 margin: .8em;
             }
             .access-code > span {
-                font-family: monospace;
                 box-shadow: 0 0 10pt 1pt #d3d3d3;
                 padding: .4em;
             }
