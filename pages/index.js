@@ -8,41 +8,49 @@ import Loading from "../components/Loading";
 import Swal from "sweetalert2";
 import { lockedMessage } from "../utils/misc";
 
+const isSpyfallTK = () =>
+	window.location.href.startsWith("https://spyfall.tannerkrewson.com");
+
 const Home = ({ loading }) => {
 	const router = useRouter();
 	const [newGameLoading, setNewGameLoading] = useState(false);
 	const t = useI18n();
-	// const onNewGame = async (e) => {
-	// 	e.preventDefault();
-	// 	setNewGameLoading(true);
+	const onNewGame = async (e) => {
+		e.preventDefault();
+		setNewGameLoading(true);
 
-	// 	try {
-	// 		const res = await fetch(window.location.origin + "/new", {
-	// 			method: "POST",
-	// 			headers: {
-	// 				Accept: "application/json",
-	// 				"Content-Type": "application/json",
-	// 			},
-	// 			body: JSON.stringify({ name }),
-	// 		});
+		if (isSpyfallTK()) {
+			router.push("https://rocketcrab.com/transfer/tk-spyfall");
+			return;
+		}
 
-	// 		if (res.status === 200) {
-	// 			const { gameCode } = await res.json();
-	// 			router.push("/" + gameCode);
-	// 		} else if (res.status === 423) {
-	// 			const { minutes } = await res.json();
-	// 			setNewGameLoading(false);
+		try {
+			const res = await fetch(window.location.origin + "/new", {
+				method: "POST",
+				headers: {
+					Accept: "application/json",
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({ name }),
+			});
 
-	// 			Swal.fire(lockedMessage(minutes));
-	// 		} else {
-	// 			throw res.status + " " + res.statusText;
-	// 		}
-	// 	} catch (error) {
-	// 		console.error(error);
-	// 		Swal.fire(error);
-	// 		setNewGameLoading(false);
-	// 	}
-	// };
+			if (res.status === 200) {
+				const { gameCode } = await res.json();
+				router.push("/" + gameCode);
+			} else if (res.status === 423) {
+				const { minutes } = await res.json();
+				setNewGameLoading(false);
+
+				Swal.fire(lockedMessage(minutes));
+			} else {
+				throw res.status + " " + res.statusText;
+			}
+		} catch (error) {
+			console.error(error);
+			Swal.fire(error);
+			setNewGameLoading(false);
+		}
+	};
 
 	return (
 		<div className="main-menu">
@@ -62,16 +70,16 @@ const Home = ({ loading }) => {
 			{!loading && (
 				<>
 					<div className="button-container">
-						<Link href="https://rocketcrab.com/join">
+						<Link
+							href={isSpyfallTK() ? "https://rocketcrab.com/join" : "/join"}
+						>
 							<button id="btn-join-game" className="btn-large">
 								{t("ui.join game")}
 							</button>
 						</Link>
-						<Link href="https://rocketcrab.com/transfer/tk-spyfall">
-							<button id="btn-new-game" className="btn-large">
-								{t("ui.new game")}
-							</button>
-						</Link>
+						<button id="btn-new-game" className="btn-large" onClick={onNewGame}>
+							{t("ui.new game")}
+						</button>
 					</div>
 					<p>Powered by 🚀🦀</p>
 					<div className="button-container-vertical">
