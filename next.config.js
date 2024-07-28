@@ -1,7 +1,7 @@
 const path = require("path");
 const withLess = require("next-with-less");
 
-const allLanguages = require("./public/static/locales/_all_languages.json");
+const allLanguages = require("./locales/_all_languages.json");
 const allLangCodes = Object.keys(allLanguages);
 
 module.exports = withLess({
