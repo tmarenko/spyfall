@@ -26,11 +26,9 @@ const Game = ({ loading }) => {
 
 	useEffect(() => {
 		const cl = socket.on("connect", () => setIsConnected(true));
-		const dl = socket.on("disconnect", () => setIsConnected(false));
 
 		return () => {
 			socket.off("connect", cl);
-			socket.off("disconnect", dl);
 		};
 	}, []);
 
@@ -54,7 +52,10 @@ const Game = ({ loading }) => {
 			// setting disconnect handler after game has been joined,
 			// or else it will cause an infinite loop with the invalid handler
 			if (gameCode !== "ffff") {
-				socket.on("disconnect", () => router.push("/" + gameCode));
+				socket.on("disconnect", () => {
+					setIsConnected(false);
+					return router.push("/" + gameCode);
+				});
 			}
 		});
 		socket.on("invalid", () => router.push("/join?invalid=" + gameCode));
