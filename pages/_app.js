@@ -6,9 +6,14 @@ import { useDarkMode } from "next-dark-mode";
 import Page from "../components/Page";
 import { initGA, logPageView } from "../utils/analytics";
 
+import "@fontsource/open-sans";
+import "@fontsource/raleway";
+import "@fontsource/raleway/500.css";
+
 import "../styles/sanitize.css";
 import "skeleton-css/css/skeleton.css";
-import "../styles/styles.less";
+import "../styles/styles.scss";
+
 import { I18nProvider } from "../locales";
 
 function MyApp({ Component, pageProps }) {

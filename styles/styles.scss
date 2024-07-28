@@ -1,8 +1,3 @@
-@import (css)
-	url("https://fonts.googleapis.com/css?family=Raleway:400,300,500,600");
-@import (css)
-	url("https://fonts.googleapis.com/css?family=Open+Sans:400,300,600&subset=latin,vietnamese,latin-ext");
-
 body {
 	text-align: center;
 	background-color: white;
@@ -67,9 +62,11 @@ h5 {
 	margin-top: 10px;
 	margin-bottom: 16px;
 }
+
 .adspace {
 	padding-bottom: 20px;
 }
+
 .container {
 	width: initial;
 	max-width: initial;
@@ -189,12 +186,15 @@ button:disabled {
 .access-code {
 	text-align: center;
 	margin-top: -15px;
-
 	color: #666;
 }
 
 .access-code span {
-	font-family: Courier New, Courier, Lucida Sans Typewriter, Lucida Typewriter,
+	font-family:
+		Courier New,
+		Courier,
+		Lucida Sans Typewriter,
+		Lucida Typewriter,
 		monospace;
 	font-size: 1.2em;
 	color: black;
@@ -210,8 +210,6 @@ button:disabled {
 	margin: 5px;
 	height: 3px;
 	width: 3px;
-	-webkit-border-radius: 3px;
-	-moz-border-radius: 3px;
 	border-radius: 3px;
 	position: relative;
 	top: 2px;
@@ -241,7 +239,11 @@ button:disabled {
 }
 
 .access-link {
-	font-family: Courier New, Courier, Lucida Sans Typewriter, Lucida Typewriter,
+	font-family:
+		Courier New,
+		Courier,
+		Lucida Sans Typewriter,
+		Lucida Typewriter,
 		monospace;
 	text-align: center;
 	margin-top: 0;
@@ -278,8 +280,6 @@ button:disabled {
 	position: absolute;
 	top: 0;
 	left: -2em;
-	-moz-box-sizing: border-box;
-	-webkit-box-sizing: border-box;
 	box-sizing: border-box;
 	width: 2em;
 	margin-right: 8px;
@@ -317,6 +317,7 @@ button:disabled {
 
 	&.paused {
 		color: red;
+
 		span {
 			animation: blink 2s steps(2, start) infinite;
 			-webkit-animation: blink 2s steps(2, start) infinite;
@@ -394,11 +395,7 @@ button:disabled {
 }
 
 .location-list {
-	-moz-column-count: 2;
-	-webkit-column-count: 2;
 	column-count: 2;
-	-moz-column-gap: 4px;
-	-webkit-column-gap: 4px;
 	column-gap: 4px;
 }
 
@@ -406,8 +403,6 @@ button:disabled {
 	display: inline-block;
 	width: 100%;
 	text-align: left;
-	-moz-box-sizing: border-box;
-	-webkit-box-sizing: border-box;
 	box-sizing: border-box;
 	list-style-type: none;
 	background-color: #eee;
@@ -433,8 +428,6 @@ button:disabled {
 
 .ingame-player-list li {
 	text-align: left;
-	-moz-box-sizing: border-box;
-	-webkit-box-sizing: border-box;
 	box-sizing: border-box;
 	width: 50%;
 	float: left;

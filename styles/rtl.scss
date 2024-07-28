@@ -28,10 +28,10 @@
 	}
 
 	.lobby-player-list > li:before {
-		content: counter(li); /* Use the counter as content */
-		counter-increment: li; /* Increment the counter by 1 */
+		content: counter(li); // Use the counter as content
+		counter-increment: li; // Increment the counter by 1
 
-		/* Position and style the number */
+		// Position and style the number
 		position: absolute;
 		top: 0;
 		right: -2em;
