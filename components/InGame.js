@@ -162,19 +162,21 @@ const InGame = ({ gameState, socket, isRocketcrab }) => {
 				>
 					{t("ui.end game")}
 				</button>
-				<button
-					className="btn-leave"
-					onClick={() =>
-						popup(t("ui.leave game"), t("ui.back"), () => {
-							//prevents a redirect back to /[gameCode]
-							socket.off("disconnect");
+				{!isRocketcrab && (
+					<button
+						className="btn-leave"
+						onClick={() =>
+							popup(t("ui.leave game"), t("ui.back"), () => {
+								//prevents a redirect back to /[gameCode]
+								socket.off("disconnect");
 
-							Router.push("/");
-						})
-					}
-				>
-					{t("ui.leave game")}
-				</button>
+								Router.push("/");
+							})
+						}
+					>
+						{t("ui.leave game")}
+					</button>
+				)}
 			</div>
 		</div>
 	);
