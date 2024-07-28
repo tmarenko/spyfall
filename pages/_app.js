@@ -4,9 +4,12 @@ import withDarkMode from "next-dark-mode";
 import { useDarkMode } from "next-dark-mode";
 
 import Page from "../components/Page";
-
-import { appWithTranslation } from "../utils/i18n";
 import { initGA, logPageView } from "../utils/analytics";
+
+import "../styles/sanitize.css";
+import "skeleton-css/css/skeleton.css";
+import "../styles/styles.less";
+import { I18nProvider } from "../locales";
 
 function MyApp({ Component, pageProps }) {
 	const {
@@ -42,65 +45,67 @@ function MyApp({ Component, pageProps }) {
 		darkModeActive ? switchToLightMode() : switchToDarkMode();
 
 	return (
-		<Page onThemeToggle={onThemeToggle} darkModeActive={darkModeActive}>
-			<Component
-				{...pageProps}
-				loading={loading}
-				onThemeToggle={onThemeToggle}
-			/>
-			{darkModeActive && (
-				<style jsx global>{`
-					body {
-						background-color: #121212;
-						color: white;
-						transition: background-color 0.2s linear;
-					}
+		<I18nProvider locale={pageProps?.locale} fallback="en">
+			<Page onThemeToggle={onThemeToggle} darkModeActive={darkModeActive}>
+				<Component
+					{...pageProps}
+					loading={loading}
+					onThemeToggle={onThemeToggle}
+				/>
+				{darkModeActive && (
+					<style jsx global>{`
+						body {
+							background-color: #121212;
+							color: white;
+							transition: background-color 0.2s linear;
+						}
 
-					.footer,
-					.language-list {
-						color: #ddd;
-					}
-					button:hover,
-					button:active,
-					button:focus,
-					.swal2-container .swal2-title {
-						color: white;
-					}
-					.swal2-container .swal2-popup {
-						background-color: #222;
-					}
-					button:active {
-						background-color: #555;
-					}
-					button {
-						background-color: #222;
-						color: white;
-						border-color: #aaa;
-						transition: background-color 0.2s linear;
-					}
+						.footer,
+						.language-list {
+							color: #ddd;
+						}
+						button:hover,
+						button:active,
+						button:focus,
+						.swal2-container .swal2-title {
+							color: white;
+						}
+						.swal2-container .swal2-popup {
+							background-color: #222;
+						}
+						button:active {
+							background-color: #555;
+						}
+						button {
+							background-color: #222;
+							color: white;
+							border-color: #aaa;
+							transition: background-color 0.2s linear;
+						}
 
-					input[type="text"],
-					select,
-					.box,
-					.lobby-player-list > .player-box {
-						border-color: #aaa !important;
-						background-color: #333 !important;
-						color: white !important;
-					}
-					.game-countdown {
-						color: #ddd;
-					}
-					.access-code,
-					.access-code > span {
-						color: #fff;
-					}
-					.box-striked {
-						background-color: #333 !important;
-						color: grey !important;
-					}
-				`}</style>
-			)}
-		</Page>
+						input[type="text"],
+						select,
+						.box,
+						.lobby-player-list > .player-box {
+							border-color: #aaa !important;
+							background-color: #333 !important;
+							color: white !important;
+						}
+						.game-countdown {
+							color: #ddd;
+						}
+						.access-code,
+						.access-code > span {
+							color: #fff;
+						}
+						.box-striked {
+							background-color: #333 !important;
+							color: grey !important;
+						}
+					`}</style>
+				)}
+			</Page>
+		</I18nProvider>
 	);
 }
 
@@ -116,4 +121,4 @@ function MyApp({ Component, pageProps }) {
 //   return { ...appProps }
 // }
 
-export default withDarkMode(appWithTranslation(MyApp));
+export default withDarkMode(MyApp);

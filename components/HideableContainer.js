@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import { withTranslation } from "../utils/i18n";
+import { useI18n } from "../locales";
 
-const HideableContainer = ({ t, children, initialHidden, title }) => {
+const HideableContainer = ({ children, initialHidden, title }) => {
 	const [showContent, setShowContent] = useState(!initialHidden);
+	const t = useI18n();
 
 	return (
 		<>
@@ -60,4 +61,4 @@ const HideableContainer = ({ t, children, initialHidden, title }) => {
 	);
 };
 
-export default withTranslation("common")(HideableContainer);
+export default HideableContainer;

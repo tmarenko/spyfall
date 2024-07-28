@@ -1,14 +1,14 @@
-import React, { useState } from "react";
+import React from "react";
+import { useChangeLocale, useCurrentLocale } from "../locales";
 
-import { i18n, withTranslation } from "../utils/i18n";
-import allLanguages from "../public/static/locales/_all_languages.json";
+import allLanguages from "../locales/_all_languages.json";
 
-const LanguageSelector = ({ t }) => {
-	const [lang, setLang] = useState("en");
+const LanguageSelector = () => {
+	const lang = useCurrentLocale();
+	const changeLocale = useChangeLocale();
 
 	const onLanguageChange = (langCode) => {
-		setLang(langCode);
-		i18n.changeLanguage(langCode);
+		const a = changeLocale(langCode);
 	};
 
 	return (
@@ -42,4 +42,4 @@ const LanguageSelector = ({ t }) => {
 	);
 };
 
-export default withTranslation("common")(LanguageSelector);
+export default LanguageSelector;

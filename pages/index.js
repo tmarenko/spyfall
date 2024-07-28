@@ -1,16 +1,17 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { useI18n } from "../locales";
 import BuyMe from "../components/BuyMe";
 
-import { withTranslation } from "../utils/i18n";
 import Loading from "../components/Loading";
 import Swal from "sweetalert2";
 import { lockedMessage } from "../utils/misc";
 
-const Home = ({ t, i18n, loading }) => {
+const Home = ({ loading }) => {
 	const router = useRouter();
 	const [newGameLoading, setNewGameLoading] = useState(false);
+	const t = useI18n();
 	const onNewGame = async (e) => {
 		e.preventDefault();
 		setNewGameLoading(true);
@@ -110,4 +111,4 @@ const Home = ({ t, i18n, loading }) => {
 	);
 };
 
-export default withTranslation("common")(Home);
+export default Home;

@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
 import Router from "next/router";
-import { withTranslation } from "../utils/i18n";
+import { useI18n } from "../locales";
 
-const NameEntry = ({ t, onNameEntry, gameCode, socket }) => {
+const NameEntry = ({ onNameEntry, gameCode, socket }) => {
 	const [name, setName] = useState("");
+
+	const t = useI18n();
 
 	// if dev game, pick random name and submit
 	useEffect(() => {
@@ -65,4 +67,4 @@ const NameEntry = ({ t, onNameEntry, gameCode, socket }) => {
 	);
 };
 
-export default withTranslation("common")(NameEntry);
+export default NameEntry;

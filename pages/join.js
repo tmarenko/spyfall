@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
+import { useI18n } from "../locales";
 
-import { withTranslation } from "../utils/i18n";
-
-const Join = ({ t }) => {
+const Join = () => {
 	const router = useRouter();
 	const invalidCode = router.query.invalid;
 
 	const [gameCode, setGameCode] = useState("");
+	const t = useI18n();
 
 	const onEnter = (e) => {
 		if (e.key !== "Enter") return;
@@ -59,4 +59,4 @@ const Join = ({ t }) => {
 	);
 };
 
-export default withTranslation("common")(Join);
+export default Join;

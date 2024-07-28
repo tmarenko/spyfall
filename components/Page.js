@@ -1,10 +1,5 @@
 import React from "react";
 import Head from "next/head";
-
-import "../styles/sanitize.css";
-import "skeleton-css/css/skeleton.css";
-
-import "../styles/styles.less";
 import LanguageSelector from "./LanguageSelector";
 import Footer from "./Footer";
 

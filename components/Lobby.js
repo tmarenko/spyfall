@@ -1,5 +1,5 @@
-import { withTranslation } from "../utils/i18n";
 import Router from "next/router";
+import { useI18n } from "../locales";
 
 import { logEvent } from "../utils/analytics";
 
@@ -8,7 +8,7 @@ import ThanksForPlaying from "./ThanksForPlaying";
 import AccessCode from "./AccessCode";
 import HideableContainer from "./HideableContainer";
 
-const Lobby = ({ t, gameState, socket }) => {
+const Lobby = ({ gameState, socket }) => {
 	const playerList = gameState.players.map((player) => ({
 		...player,
 		isMe: player.name === gameState.me.name,
@@ -20,6 +20,8 @@ const Lobby = ({ t, gameState, socket }) => {
 		logEvent("lobby-locationPack", gameState.settings.locationPack);
 		logEvent("lobby-timeLimit", gameState.settings.timeLimit);
 	};
+
+	const t = useI18n();
 
 	return (
 		<>
@@ -88,4 +90,4 @@ const Lobby = ({ t, gameState, socket }) => {
 	);
 };
 
-export default withTranslation("common")(Lobby);
+export default Lobby;

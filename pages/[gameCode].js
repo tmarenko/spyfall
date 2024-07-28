@@ -3,8 +3,8 @@ import { useRouter } from "next/router";
 import socketIOClient from "socket.io-client";
 import Swal from "sweetalert2";
 import { parseCookies, setCookie } from "nookies";
+import { useI18n } from "../locales";
 
-import { withTranslation } from "../utils/i18n";
 import NameEntry from "../components/NameEntry";
 import Lobby from "../components/Lobby";
 import InGame from "../components/InGame";
@@ -13,8 +13,9 @@ import { lockedMessage } from "../utils/misc";
 
 const socket = socketIOClient();
 
-const Game = ({ t, loading }) => {
+const Game = ({ loading }) => {
 	const router = useRouter();
+	const t = useI18n();
 	const { gameCode } = router.query;
 
 	const [gameState, setGameState] = useState({
@@ -42,7 +43,7 @@ const Game = ({ t, loading }) => {
 		socket.on("invalid", () => router.push("/join?invalid=" + gameCode));
 		socket.on("badName", () => Swal.fire("Name already in use"));
 		socket.on("lockedWarning", (minutes) =>
-			Swal.fire(lockedMessage(minutes)).then(() => router.push("/"))
+			Swal.fire(lockedMessage(minutes)).then(() => router.push("/")),
 		);
 
 		return function cleanup() {
@@ -89,4 +90,4 @@ const Game = ({ t, loading }) => {
 	);
 };
 
-export default withTranslation("common")(Game);
+export default Game;

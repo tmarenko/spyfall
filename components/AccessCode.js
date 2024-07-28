@@ -1,11 +1,14 @@
-import { withTranslation } from "../utils/i18n";
+import { useI18n } from "../locales";
 
-const AccessCode = ({ t, code }) => (
-	<>
-		<div className="access-code">
-			{t("ui.access code")}: <span>{code}</span>
-		</div>
-		<style>{`
+const AccessCode = ({ code }) => {
+	const t = useI18n();
+
+	return (
+		<>
+			<div className="access-code">
+				{t("ui.access code")}: <span>{code}</span>
+			</div>
+			<style>{`
             .access-code {
                 margin: .8em;
             }
@@ -15,7 +18,8 @@ const AccessCode = ({ t, code }) => (
                 padding: .4em;
             }
         `}</style>
-	</>
-);
+		</>
+	);
+};
 
-export default withTranslation("common")(AccessCode);
+export default AccessCode;
