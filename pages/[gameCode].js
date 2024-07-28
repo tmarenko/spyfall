@@ -63,6 +63,16 @@ const Game = ({ loading }) => {
 			Swal.fire(lockedMessage(minutes)).then(() => router.push("/")),
 		);
 
+		const urlParams = new URLSearchParams(window.location.search);
+
+		const isRocketcrab = urlParams.get("rocketcrab") === "true";
+		const name = urlParams.get("name");
+
+		if (isRocketcrab && name) {
+			setIsRocketcrab(true);
+			onNameEntry(name);
+		}
+
 		return function cleanup() {
 			socket.close();
 			setGameState({ status: "loading" });
@@ -74,18 +84,6 @@ const Game = ({ loading }) => {
 		setCookie(null, "previousGameCode", gameCode);
 		setCookie(null, "previousName", name);
 	};
-
-	useEffect(() => {
-		const urlParams = new URLSearchParams(window.location.search);
-
-		const isRocketcrab = urlParams.get("rocketcrab") === "true";
-		const name = urlParams.get("name");
-
-		if (isRocketcrab && name) {
-			setIsRocketcrab(true);
-			onNameEntry(name);
-		}
-	}, []);
 
 	const { status, me } = gameState;
 
