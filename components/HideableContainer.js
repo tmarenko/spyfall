@@ -28,12 +28,12 @@ const HideableContainer = ({ children, initialHidden, title }) => {
                     border-top: 1px solid #e1e1e1;
                     border-bottom: 1px solid #e1e1e1;
                     position: relative;
-                    min-height: 14px;
+                    min-height: 18px;
                     margin-bottom: 1em;
                 }
                 
                 .status-container-content {
-                    margin-top: 10px;
+                    margin-top: 16px;
                     margin-bottom: 10px;
                 }
 
@@ -50,9 +50,9 @@ const HideableContainer = ({ children, initialHidden, title }) => {
                     top: -5px;
                     padding: 2px 10px;
                     line-height: 1em;
-                    height: 16px;
+                    height: 18px;
                     border: none;
-                    font-size: 10px;
+                    font-size: 14px;
                     text-transform: none;
                     color: #999;
                 }

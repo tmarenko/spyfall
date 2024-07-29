@@ -11,6 +11,7 @@ const AccessCode = ({ code }) => {
 			<style>{`
             .access-code {
                 margin: .8em;
+				margin-bottom: 1.5em;
             }
             .access-code > span {
                 box-shadow: 0 0 10pt 1pt #d3d3d3;

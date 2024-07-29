@@ -9,7 +9,11 @@ const Settings = ({ gameState, socket }) => {
 	} = settings;
 
 	return (
-		<div>
+		<div
+			style={{
+				paddingTop: "1em",
+			}}
+		>
 			<TimeLimit
 				onSetMinutes={(minutes) => socket.emit("setTimeLimit", minutes)}
 				serverMinutes={serverMinutes}
