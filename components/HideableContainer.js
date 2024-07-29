@@ -18,7 +18,7 @@ const HideableContainer = ({ children, initialHidden, title }) => {
 					className="btn-toggle-status btn-toggle-status-right"
 					onClick={() => setShowContent(!showContent)}
 				>
-					{t("ui.show hide")}
+					{t(showContent ? "ui.hide" : "ui.show")}
 				</button>
 
 				{showContent && children}
