@@ -25,7 +25,7 @@ const Lobby = ({ gameState, socket, isRocketcrab }) => {
 
 	return (
 		<>
-			<h4>{t("ui.waiting for players")}</h4>
+			<h4>{t("ui.welcome to spyfall")}</h4>
 
 			{!isRocketcrab && <AccessCode code={gameState.code} />}
 
