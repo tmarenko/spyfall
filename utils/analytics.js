@@ -1,12 +1,14 @@
-import ReactGA from "react-ga";
+import ReactGA from "react-ga4";
 
 export const initGA = () => {
-	ReactGA.initialize("UA-82444397-11");
+	ReactGA.initialize("G-1VH05G01VY");
 };
 
 export const logPageView = () => {
 	ReactGA.set({ page: window.location.pathname });
-	ReactGA.pageview(window.location.pathname);
+	ReactGA.send({
+		hitType: "pageview",
+	});
 };
 
 export const logEvent = (category = "", action = "") => {
@@ -17,6 +19,7 @@ export const logEvent = (category = "", action = "") => {
 
 export const logException = (description = "", fatal = false) => {
 	if (description) {
-		ReactGA.exception({ description, fatal });
+		// https://github.com/codler/react-ga4/issues/40
+		// ReactGA.exception({ description, fatal });
 	}
 };
