@@ -40,7 +40,7 @@ const Game = ({ loading }) => {
 	}, []);
 
 	useEffect(() => {
-		if (!isConnected) {
+		if (!isConnected && !socket.active) {
 			socket.connect();
 			return;
 		}
@@ -101,6 +101,10 @@ const Game = ({ loading }) => {
 				<>
 					<h4>{t("ui.waiting for players")}</h4>
 					<Loading />
+					<div>{socket.connected ? "Connected" : "Disconnected"}</div>
+					<button className="btn-small" onClick={() => socket.connect()}>
+						Reconnect
+					</button>
 				</>
 			)}
 			{!showLoading && (
